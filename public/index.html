@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - ERP Resíduos</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 900: '#14532d' },
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-dark text-slate-300 flex flex-col shadow-2xl z-10 hidden md:flex">
+        <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900/50">
+              <img src="assets/imagens/logo.png" alt="Logo Bracicla" class="w-8 h-8 mr-3" />
+              <span class="text-white font-semibold text-lg tracking-wide">Bracicla</span>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4">
+            <div class="px-4 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Principal</div>
+            <a href="index.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500">
+                <i class="fas fa-tachometer-alt w-5 mr-3"></i><span class="font-medium">Dashboard</span>
+            </a>
+            
+            <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Gestão</div>
+            <a href="clientes.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-users w-5 mr-3"></i>Clientes e Lojas</a>
+            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais (LER)</a>
+            <a href="servicos.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-truck w-5 mr-3"></i>Serviços e Avenças</a>
+            <a href="guias.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-file-invoice w-5 mr-3"></i>Guias (e-GAR)</a>
+            
+            <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Finanças</div>
+            <a href="faturacao.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-chart-line w-5 mr-3"></i>Faturação Mensal</a>
+        </nav>
+        
+        <div class="p-4 border-t border-slate-800 bg-slate-900/30 flex items-center">
+            <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm">A</div>
+            <div class="ml-3">
+                <p class="text-sm font-medium text-white">Administrador</p>
+                <p class="text-xs text-slate-500">Sessão Ativa</p>
+            </div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-0">
+            <h1 class="text-xl font-semibold text-slate-800">Visão Geral do Sistema</h1>
+            <div class="flex items-center text-slate-400">
+                <button class="hover:text-slate-600 transition-colors"><i class="fas fa-bell text-lg"></i></button>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-1">Guias Pendentes</p>
+                        <h2 class="text-4xl font-bold text-slate-800" id="kpi-pendentes">0</h2>
+                        <p class="text-xs text-amber-500 mt-2 font-medium flex items-center"><i class="fas fa-exclamation-circle mr-1"></i> A aguardar fecho final</p>
+                    </div>
+                    <div class="w-14 h-14 rounded-full bg-amber-50 flex items-center justify-center text-amber-500 text-2xl shadow-sm">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-1">Total de Clientes</p>
+                        <h2 class="text-4xl font-bold text-slate-800" id="kpi-clientes">0</h2>
+                        <p class="text-xs text-brand-500 mt-2 font-medium flex items-center"><i class="fas fa-arrow-up mr-1"></i> Sedes ativas no sistema</p>
+                    </div>
+                    <div class="w-14 h-14 rounded-full bg-brand-50 flex items-center justify-center text-brand-500 text-2xl shadow-sm">
+                        <i class="fas fa-building"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 flex flex-col">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-6 flex items-center"><i class="fas fa-chart-bar text-brand-500 mr-2"></i> Resíduos Recebidos (KG)</h3>
+                    <div class="flex-1 w-full relative">
+                        <canvas id="meuGrafico"></canvas>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 flex flex-col overflow-hidden">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                        <h3 class="text-lg font-semibold text-slate-800 flex items-center"><i class="fas fa-clock text-amber-500 mr-2"></i> Últimas Guias Emitidas</h3>
+                        <span class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">Ação Necessária</span>
+                    </div>
+                    
+                    <div class="overflow-x-auto flex-1">
+                        <table class="w-full text-sm text-left text-slate-600">
+                            <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-100">
+                                <tr>
+                                    <th class="px-6 py-4 font-semibold">Nº Guia</th>
+                                    <th class="px-6 py-4 font-semibold">Loja</th>
+                                    <th class="px-6 py-4 font-semibold">Material</th>
+                                    <th class="px-6 py-4 font-semibold">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-alertas" class="divide-y divide-slate-100">
+                                <tr><td colspan="4" class="px-6 py-8 text-center text-slate-400">A carregar dados...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-4 border-t border-slate-100 bg-slate-50/50 text-center">
+                        <a href="guias.html" class="text-sm font-medium text-brand-600 hover:text-brand-800 transition-colors">Ver todas as guias pendentes →</a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function carregarDashboard() {
+            try {
+                const resposta = await fetch('/dashboard-stats');
+                const dados = await resposta.json();
+
+                // 1. Preencher as Caixas (KPIs)
+                document.getElementById('kpi-pendentes').innerText = dados.guiasPendentes;
+                document.getElementById('kpi-clientes').innerText = dados.totalClientes;
+
+                // 2. Preencher Tabela de Alertas (Guias Pendentes)
+                const tabela = document.getElementById('tabela-alertas');
+                tabela.innerHTML = '';
+                if(dados.tabelaPendentes.length === 0) {
+                    tabela.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-brand-500 font-medium">Não há guias pendentes! 🎉</td></tr>';
+                } else {
+                    dados.tabelaPendentes.forEach(g => {
+                        const dataFormatada = new Date(g.data_emissao).toLocaleDateString('pt-PT');
+                        tabela.innerHTML += `
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">${g.numero_guia}</td>
+                                <td class="px-6 py-4">${g.nome_loja}</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 px-2 py-1 rounded text-xs font-medium">${g.material}</span></td>
+                                <td class="px-6 py-4 text-slate-500">${dataFormatada}</td>
+                            </tr>`;
+                    });
+                }
+
+                // 3. Montar o Gráfico de Barras com aspeto moderno
+                const ctx = document.getElementById('meuGrafico').getContext('2d');
+                const nomesMateriais = dados.graficoMateriais.map(m => m.descricao);
+                const pesosMateriais = dados.graficoMateriais.map(m => m.total_peso);
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: nomesMateriais,
+                        datasets: [{
+                            label: 'Quilos (KG) Recebidos',
+                            data: pesosMateriais,
+                            backgroundColor: '#22c55e', // Cor Brand do Tailwind
+                            borderRadius: 6, // Barras arredondadas!
+                            borderSkipped: false,
+                            barThickness: 40
+                        }]
+                    },
+                    options: { 
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { 
+                            y: { beginAtZero: true, grid: { borderDash: [4, 4], color: '#f1f5f9' }, border: { display: false } },
+                            x: { grid: { display: false }, border: { display: false } }
+                        } 
+                    }
+                });
+
+            } catch (erro) {
+                console.error("Erro a carregar dashboard:", erro);
+            }
+        }
+        carregarDashboard();
+    </script>
+</body>
+</html>

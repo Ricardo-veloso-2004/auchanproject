@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faturação - Bracicla ERP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 900: '#14532d' },
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @page { size: A4; margin: 15mm; }
+        @media print {
+            /* Esconder os menus e a caixa de seleção */
+            aside, header, #caixa-selecao, #area-botao-imprimir { display: none !important; }
+            body { background-color: white !important; }
+            
+            /* Ajustar o layout para ocupar a página toda */
+            .flex-1 { margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+            main { padding: 0 !important; overflow: visible !important; height: auto !important; }
+            
+            /* Mostrar o Cabeçalho Oficial (escondido no ecrã) */
+            #cabecalho-impressao { display: block !important; margin-bottom: 2rem !important; }
+            
+            /* Forçar a impressão das cores nos cartões de totais */
+            .print-bg-green { background-color: #22c55e !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .print-bg-red { background-color: #ef4444 !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .print-bg-blue { background-color: #3b82f6 !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            
+            /* Alinhar os cartões de totais lado a lado no papel */
+            #area-totais { display: flex !important; flex-direction: row !important; gap: 1rem !important; margin-bottom: 2rem !important; }
+            #area-totais > div { flex: 1 !important; border-radius: 0.5rem !important; padding: 1rem !important; }
+            
+            /* Remover sombras e bordas extra nas tabelas para poupar tinta */
+            .print-no-shadow { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+            table { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-dark text-slate-300 flex flex-col shadow-2xl z-10 hidden md:flex">
+        <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900/50">
+              <img src="assets/imagens/logo.png" alt="Logo Bracicla" class="w-8 h-8 mr-3" />
+              <span class="text-white font-semibold text-lg tracking-wide">Bracicla</span>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <div class="px-4 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Principal</div>
+            <a href="index.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-tachometer-alt w-5 mr-3"></i>Dashboard</a>
+            
+            <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Gestão</div>
+            <a href="clientes.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-users w-5 mr-3"></i>Clientes e Lojas</a>
+            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais (LER)</a>
+            <a href="servicos.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-truck w-5 mr-3"></i>Serviços e Avenças</a>
+            <a href="guias.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-file-invoice w-5 mr-3"></i>Guias (e-GAR)</a>
+            
+            <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Finanças</div>
+            <a href="faturacao.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500"><i class="fas fa-chart-line w-5 mr-3"></i><span class="font-medium">Faturação Mensal</span></a>
+        </nav>
+        <div class="p-4 border-t border-slate-800 bg-slate-900/30 flex items-center">
+            <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm">A</div>
+            <div class="ml-3"><p class="text-sm font-medium text-white">Administrador</p></div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-0">
+            <h1 class="text-xl font-semibold text-slate-800">Relatório de Faturação</h1>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8">
+            
+            <div id="cabecalho-impressao" class="hidden">
+                <div class="flex justify-between items-start border-b-2 border-slate-800 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-800"><i class="fa-solid fa-recycle text-brand-500 mr-2"></i>Bracicla</h2>
+                        <p class="text-slate-600 text-sm mt-1">Rua da Reciclagem, 123 - Braga</p>
+                        <p class="text-slate-600 text-sm">NIF: 500 000 000</p>
+                        <p class="text-slate-600 text-sm">Email: faturacao@bracicla.pt</p>
+                    </div>
+                    <div class="text-right">
+                        <h3 class="text-xl font-bold text-brand-600 uppercase tracking-wider">Fatura / Balanço</h3>
+                        <h5 id="nome-cliente-impressao" class="font-bold text-slate-800 mt-2 text-lg"></h5>
+                        <p class="text-sm text-slate-500 mt-1"><strong>Data de Emissão:</strong> <span id="data-impressao"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="caixa-selecao" class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border-l-4 border-l-brand-500 mb-8">
+                <div class="flex flex-col md:flex-row items-end gap-4">
+                    <div class="flex-1 w-full">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Selecione o Cliente (Sede) para gerar o relatório:</label>
+                        <select id="dropdown-sedes" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-slate-50">
+                            <option value="">A carregar...</option>
+                        </select>
+                    </div>
+                    <button onclick="gerarRelatorio()" class="w-full md:w-auto px-8 py-3 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-lg transition-colors shadow-sm flex items-center justify-center">
+                        <i class="fas fa-sync-alt mr-2"></i> Processar Dados
+                    </button>
+                </div>
+            </div>
+
+            <div class="text-right mb-6 hidden" id="area-botao-imprimir">
+                <button onclick="window.print()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg transition-colors shadow-sm inline-flex items-center">
+                    <i class="fas fa-print mr-2"></i> Guardar em PDF / Imprimir
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 hidden" id="area-totais">
+                <div class="print-bg-green bg-green-500 rounded-2xl p-6 text-white shadow-md">
+                    <h5 class="text-green-100 text-sm font-semibold uppercase tracking-wider mb-2">Resíduos (A Pagar ao Cliente)</h5>
+                    <h2 id="total-residuos" class="text-3xl font-bold">0.00 €</h2>
+                </div>
+                <div class="print-bg-red bg-red-500 rounded-2xl p-6 text-white shadow-md">
+                    <h5 class="text-red-100 text-sm font-semibold uppercase tracking-wider mb-2">Serviços (A Cobrar ao Cliente)</h5>
+                    <h2 id="total-servicos" class="text-3xl font-bold">0.00 €</h2>
+                </div>
+                <div class="print-bg-blue bg-blue-500 rounded-2xl p-6 text-white shadow-md">
+                    <h5 class="text-blue-100 text-sm font-semibold uppercase tracking-wider mb-2">Balanço Final</h5>
+                    <h2 id="balanco-final" class="text-3xl font-bold">0.00 €</h2>
+                </div>
+            </div>
+
+            <div id="area-tabelas" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 overflow-hidden print-no-shadow">
+                        <div class="p-4 border-b border-slate-100 bg-green-50/50">
+                            <h3 class="text-base font-semibold text-green-700 flex items-center"><i class="fas fa-recycle mr-2"></i> Detalhe de Guias Recebidas</h3>
+                        </div>
+                        <table class="w-full text-sm text-left text-slate-600">
+                            <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-100">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold">Loja / Nº Guia</th>
+                                    <th class="px-4 py-3 font-semibold">Material</th>
+                                    <th class="px-4 py-3 font-semibold">Peso</th>
+                                    <th class="px-4 py-3 font-semibold text-right">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-residuos" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 overflow-hidden print-no-shadow">
+                        <div class="p-4 border-b border-slate-100 bg-red-50/50">
+                            <h3 class="text-base font-semibold text-red-700 flex items-center"><i class="fas fa-truck mr-2"></i> Detalhe de Serviços Contratados</h3>
+                        </div>
+                        <table class="w-full text-sm text-left text-slate-600">
+                            <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-100">
+                                <tr>
+                                    <th class="px-4 py-3 font-semibold">Loja</th>
+                                    <th class="px-4 py-3 font-semibold">Serviço</th>
+                                    <th class="px-4 py-3 font-semibold">Tipo</th>
+                                    <th class="px-4 py-3 font-semibold text-right">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-servicos-relatorio" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        async function carregarSedes() {
+            const resposta = await fetch('/sedes');
+            const sedes = await resposta.json();
+            const dropdown = document.getElementById('dropdown-sedes');
+            dropdown.innerHTML = '<option value="">Selecione uma Sede...</option>'; 
+            sedes.forEach(sede => dropdown.innerHTML += `<option value="${sede.id}">${sede.nome}</option>`);
+        }
+
+        async function gerarRelatorio() {
+            const seletor = document.getElementById('dropdown-sedes');
+            const clienteId = seletor.value;
+            const nomeCliente = seletor.options[seletor.selectedIndex].text; 
+            
+            if(!clienteId) return alert('Por favor, selecione um cliente!');
+
+            const resposta = await fetch(`/faturacao/${clienteId}`);
+            const dados = await resposta.json();
+
+            // 1. Mostrar as secções
+            document.getElementById('area-totais').classList.remove('hidden');
+            document.getElementById('area-tabelas').classList.remove('hidden');
+            document.getElementById('area-botao-imprimir').classList.remove('hidden');
+            
+            // Preencher o cabeçalho de impressão
+            document.getElementById('nome-cliente-impressao').innerText = "Cliente: " + nomeCliente;
+            document.getElementById('data-impressao').innerText = new Date().toLocaleDateString('pt-PT');
+
+            // 2. Preencher totais
+            document.getElementById('total-residuos').innerText = dados.totais.residuos + ' €';
+            document.getElementById('total-servicos').innerText = dados.totais.servicos + ' €';
+            document.getElementById('balanco-final').innerText = dados.totais.balanco + ' €';
+
+            // 3. Preencher a tabela de Resíduos
+            const tabResiduos = document.getElementById('tabela-residuos');
+            tabResiduos.innerHTML = '';
+            if(dados.guias.length === 0) tabResiduos.innerHTML = '<tr><td colspan="4" class="px-4 py-6 text-center text-slate-400">Sem guias registadas.</td></tr>';
+            dados.guias.forEach(g => {
+                tabResiduos.innerHTML += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-3 text-slate-800 font-medium">${g.nome_loja} <br><span class="text-xs text-slate-400 font-normal">${g.numero_guia}</span></td>
+                        <td class="px-4 py-3">${g.material}</td>
+                        <td class="px-4 py-3">${g.peso_kg} kg</td>
+                        <td class="px-4 py-3 text-right font-bold text-slate-800">${g.valor_calculado} €</td>
+                    </tr>`;
+            });
+
+            // 4. Preencher a tabela de Serviços
+            const tabServicos = document.getElementById('tabela-servicos-relatorio');
+            tabServicos.innerHTML = '';
+            if(dados.servicos.length === 0) tabServicos.innerHTML = '<tr><td colspan="4" class="px-4 py-6 text-center text-slate-400">Sem serviços registados.</td></tr>';
+            dados.servicos.forEach(s => {
+                tabServicos.innerHTML += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-4 py-3 text-slate-800 font-medium">${s.nome_loja}</td>
+                        <td class="px-4 py-3">${s.servico}</td>
+                        <td class="px-4 py-3"><span class="bg-slate-100 px-2 py-1 rounded text-xs text-slate-600">${s.tipo}</span></td>
+                        <td class="px-4 py-3 text-right font-bold text-slate-800">${s.valor} €</td>
+                    </tr>`;
+            });
+        }
+
+        carregarSedes();
+    </script>
+</body>
+</html>

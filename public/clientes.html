@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clientes - Bracicla ERP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 900: '#14532d' },
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-dark text-slate-300 flex flex-col shadow-2xl z-10 hidden md:flex">
+        <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900/50">
+            <i class="fa-solid fa-recycle text-brand-500 text-xl mr-3"></i>
+            <span class="text-white font-semibold text-lg tracking-wide">Bracicla</span>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <div class="px-4 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Principal</div>
+            <a href="index.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-tachometer-alt w-5 mr-3"></i>Dashboard</a>
+            
+            <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Gestão</div>
+            <a href="clientes.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500"><i class="fas fa-users w-5 mr-3"></i><span class="font-medium">Clientes e Lojas</span></a>
+            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais (LER)</a>
+            <a href="servicos.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-truck w-5 mr-3"></i>Serviços e Avenças</a>
+            <a href="guias.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-file-invoice w-5 mr-3"></i>Guias (e-GAR)</a>
+            
+            <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Finanças</div>
+            <a href="faturacao.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-chart-line w-5 mr-3"></i>Faturação Mensal</a>
+        </nav>
+        <div class="p-4 border-t border-slate-800 bg-slate-900/30 flex items-center">
+            <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm">A</div>
+            <div class="ml-3"><p class="text-sm font-medium text-white">Administrador</p></div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-0">
+            <h1 class="text-xl font-semibold text-slate-800">Gestão de Clientes</h1>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-6 flex items-center"><i class="fas fa-building text-brand-500 mr-2"></i> 1. Adicionar Sede</h3>
+                    <form id="form-cliente" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Nome da Empresa</label>
+                                <input type="text" id="nome" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">NIF</label>
+                                <input type="text" id="nif" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Morada de Faturação</label>
+                            <input type="text" id="morada_faturacao" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Telefone</label>
+                                <input type="text" id="telefone" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Email de Faturação</label>
+                                <input type="email" id="email_faturacao" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-2.5 rounded-lg transition-colors mt-2">
+                            Gravar Sede
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-6 flex items-center"><i class="fas fa-store text-brand-500 mr-2"></i> 2. Adicionar Loja a uma Sede</h3>
+                    <form id="form-estabelecimento" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Escolher Sede</label>
+                            <select id="dropdown-sedes" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all bg-white">
+                                <option value="">A carregar...</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Nome da Loja</label>
+                                <input type="text" id="nome_loja" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Código SILIAMB (APA)</label>
+                                <input type="text" id="codigo_apa" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Morada da Loja (Local de Recolha Físico)</label>
+                            <input type="text" id="morada_loja" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                        </div>
+                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 rounded-lg transition-colors mt-2">
+                            Adicionar Loja
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 overflow-hidden">
+                <div class="p-6 border-b border-slate-100 bg-slate-50/50">
+                    <h3 class="text-lg font-semibold text-slate-800 flex items-center"><i class="fas fa-list text-slate-400 mr-2"></i> Lista Geral de Lojas Ativas</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-slate-600">
+                        <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-100">
+                            <tr>
+                                <th class="px-6 py-4 font-semibold">Sede (Faturação)</th>
+                                <th class="px-6 py-4 font-semibold">Loja (Recolha)</th>
+                                <th class="px-6 py-4 font-semibold">Código APA</th>
+                                <th class="px-6 py-4 font-semibold text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-clientes" class="divide-y divide-slate-100">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="modal-detalhes" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl transform transition-all overflow-hidden border border-slate-200 m-4">
+            
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="text-lg font-bold text-slate-800"><i class="fas fa-address-card text-brand-500 mr-2"></i> Detalhes Completos</h3>
+                <button onclick="fecharModal()" class="text-slate-400 hover:text-rose-500 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b pb-2">Dados da Sede (Faturação)</h4>
+                <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
+                    <div><span class="text-slate-500 block">Nome:</span> <strong id="modal-sede-nome" class="text-slate-800"></strong></div>
+                    <div><span class="text-slate-500 block">NIF:</span> <strong id="modal-sede-nif" class="text-slate-800"></strong></div>
+                    <div class="col-span-2"><span class="text-slate-500 block">Morada de Faturação:</span> <strong id="modal-sede-morada" class="text-slate-800"></strong></div>
+                    <div><span class="text-slate-500 block"><i class="fas fa-phone mr-1"></i> Telefone:</span> <strong id="modal-sede-telefone" class="text-slate-800"></strong></div>
+                    <div><span class="text-slate-500 block"><i class="fas fa-envelope mr-1"></i> Email:</span> <strong id="modal-sede-email" class="text-slate-800"></strong></div>
+                </div>
+
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b pb-2">Dados da Loja (Operação)</h4>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div><span class="text-slate-500 block">Nome da Loja:</span> <strong id="modal-loja-nome" class="text-slate-800"></strong></div>
+                    <div><span class="text-slate-500 block">Código SILIAMB:</span> <strong id="modal-loja-apa" class="text-brand-600"></strong></div>
+                    <div class="col-span-2"><span class="text-slate-500 block">Local de Recolha Físico:</span> <strong id="modal-loja-morada" class="text-slate-800"></strong></div>
+                </div>
+            </div>
+            
+            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 text-right">
+                <button onclick="fecharModal()" class="px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium rounded-lg transition-colors">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let listaGlobalDeClientes = [];
+
+        async function carregarTabela() {
+            const resposta = await fetch('/clientes');
+            listaGlobalDeClientes = await resposta.json();
+            
+            const tabela = document.getElementById('tabela-clientes');
+            tabela.innerHTML = ''; 
+            
+            listaGlobalDeClientes.forEach((cliente, index) => {
+                tabela.innerHTML += `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4 font-semibold text-slate-800">${cliente.Sede}</td>
+                    <td class="px-6 py-4">${cliente.Loja}</td>
+                    <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 rounded-full text-xs font-medium">${cliente.codigo_apa}</span></td>
+                    <td class="px-6 py-4 text-center">
+                        <button onclick="abrirModal(${index})" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 rounded text-xs font-bold transition-colors">
+                            <i class="fas fa-eye mr-1"></i> Detalhes
+                        </button>
+                    </td>
+                </tr>`;
+            });
+        }
+
+        function abrirModal(index) {
+            const dados = listaGlobalDeClientes[index];
+            
+            document.getElementById('modal-sede-nome').innerText = dados.Sede || '-';
+            document.getElementById('modal-sede-nif').innerText = dados.nif || '-';
+            document.getElementById('modal-sede-morada').innerText = dados.morada_faturacao || 'Não definida';
+            document.getElementById('modal-sede-telefone').innerText = dados.telefone || 'Sem telefone';
+            document.getElementById('modal-sede-email').innerText = dados.email_faturacao || 'Sem email';
+            
+            document.getElementById('modal-loja-nome').innerText = dados.Loja || '-';
+            document.getElementById('modal-loja-apa').innerText = dados.codigo_apa || '-';
+            document.getElementById('modal-loja-morada').innerText = dados.morada_loja || 'Não definida';
+
+            document.getElementById('modal-detalhes').classList.remove('hidden');
+        }
+
+        function fecharModal() {
+            document.getElementById('modal-detalhes').classList.add('hidden');
+        }
+
+        async function carregarSedes() {
+            const resposta = await fetch('/sedes');
+            const sedes = await resposta.json();
+            const dropdown = document.getElementById('dropdown-sedes');
+            dropdown.innerHTML = '<option value="">Selecione uma Sede...</option>'; 
+            sedes.forEach(sede => dropdown.innerHTML += `<option value="${sede.id}">${sede.nome}</option>`);
+        }
+
+        // Criar Cliente (Sede)
+        document.getElementById('form-cliente').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const novoCliente = { 
+                nome: document.getElementById('nome').value, 
+                nif: document.getElementById('nif').value,
+                morada_faturacao: document.getElementById('morada_faturacao').value,
+                telefone: document.getElementById('telefone').value,
+                email_faturacao: document.getElementById('email_faturacao').value
+            };
+            const resposta = await fetch('/clientes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(novoCliente) });
+            if (resposta.ok) { 
+                alert('Sede criada com sucesso!'); 
+                document.getElementById('form-cliente').reset(); 
+                carregarSedes(); 
+            } else { alert('Erro! Verifique se o NIF já existe.'); }
+        });
+
+        // Criar Estabelecimento (Loja)
+        // Criar Estabelecimento (Loja)
+        document.getElementById('form-estabelecimento').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const novaLoja = { 
+                cliente_id: document.getElementById('dropdown-sedes').value, 
+                nome_loja: document.getElementById('nome_loja').value, 
+                codigo_apa: document.getElementById('codigo_apa').value,
+                morada_local: document.getElementById('morada_loja').value // <-- O SEGREDO ESTÁ AQUI!
+            };
+            const resposta = await fetch('/estabelecimentos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(novaLoja) });
+            if (resposta.ok) { 
+                alert('Loja adicionada com sucesso!'); 
+                document.getElementById('form-estabelecimento').reset(); 
+                carregarTabela(); 
+            } else { alert('Erro! O Código APA já existe?'); }
+        });
+
+        // Arrancar
+        carregarTabela();
+        carregarSedes();
+    </script>
+</body>
+</html>
