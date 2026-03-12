@@ -24,27 +24,16 @@
     <style>
         @page { size: A4; margin: 15mm; }
         @media print {
-            /* Esconder os menus e a caixa de seleção */
-            aside, header, #caixa-selecao, #area-botao-imprimir { display: none !important; }
+            aside, header, #caixa-selecao, #area-botao-imprimir, .print-hidden { display: none !important; }
             body { background-color: white !important; }
-            
-            /* Ajustar o layout para ocupar a página toda */
             .flex-1 { margin: 0 !important; padding: 0 !important; overflow: visible !important; }
             main { padding: 0 !important; overflow: visible !important; height: auto !important; }
-            
-            /* Mostrar o Cabeçalho Oficial (escondido no ecrã) */
             #cabecalho-impressao { display: block !important; margin-bottom: 2rem !important; }
-            
-            /* Forçar a impressão das cores nos cartões de totais */
             .print-bg-green { background-color: #22c55e !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .print-bg-red { background-color: #ef4444 !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .print-bg-blue { background-color: #3b82f6 !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            
-            /* Alinhar os cartões de totais lado a lado no papel */
             #area-totais { display: flex !important; flex-direction: row !important; gap: 1rem !important; margin-bottom: 2rem !important; }
             #area-totais > div { flex: 1 !important; border-radius: 0.5rem !important; padding: 1rem !important; }
-            
-            /* Remover sombras e bordas extra nas tabelas para poupar tinta */
             .print-no-shadow { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
             table { page-break-inside: avoid; }
         }
@@ -62,13 +51,13 @@
             <a href="index.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-tachometer-alt w-5 mr-3"></i>Dashboard</a>
             
             <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Gestão</div>
-            <a href="clientes.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-users w-5 mr-3"></i>Clientes e Lojas</a>
-            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais (LER)</a>
-            <a href="servicos.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-truck w-5 mr-3"></i>Serviços e Avenças</a>
-            <a href="guias.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-file-invoice w-5 mr-3"></i>Guias (e-GAR)</a>
+            <a href="clientes.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-users w-5 mr-3"></i>Clientes</a>
+            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais</a>
+            <a href="servicos.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-truck w-5 mr-3"></i>Serviços</a>
+            <a href="guias.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-file-invoice w-5 mr-3"></i>Guias</a>
             
             <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Finanças</div>
-            <a href="faturacao.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500"><i class="fas fa-chart-line w-5 mr-3"></i><span class="font-medium">Faturação Mensal</span></a>
+            <a href="faturacao.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500"><i class="fas fa-chart-line w-5 mr-3"></i><span class="font-medium">Faturação</span></a>
         </nav>
         <div class="p-4 border-t border-slate-800 bg-slate-900/30 flex items-center">
             <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm">A</div>
@@ -102,15 +91,37 @@
 
             <div id="caixa-selecao" class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border-l-4 border-l-brand-500 mb-8">
                 <div class="flex flex-col md:flex-row items-end gap-4">
+                    
                     <div class="flex-1 w-full">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Selecione o Cliente (Sede) para gerar o relatório:</label>
-                        <select id="dropdown-sedes" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-slate-50">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Cliente (Sede):</label>
+                        <select id="dropdown-sedes" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all bg-slate-50">
                             <option value="">A carregar...</option>
                         </select>
                     </div>
+
+                    <div class="w-full md:w-48">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Data Início:</label>
+                        <input type="date" id="data-inicio" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+                    
+                    <div class="w-full md:w-48">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Data Fim:</label>
+                        <input type="date" id="data-fim" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+
                     <button onclick="gerarRelatorio()" class="w-full md:w-auto px-8 py-3 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-lg transition-colors shadow-sm flex items-center justify-center">
-                        <i class="fas fa-sync-alt mr-2"></i> Processar Dados
+                        <i class="fas fa-sync-alt mr-2"></i> Processar
                     </button>
+                </div>
+            </div>
+
+            <div id="alerta-emitidas" class="hidden mb-8 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg shadow-sm items-start print-hidden">
+                <div class="text-amber-500 mt-0.5 mr-3">
+                    <i class="fas fa-exclamation-triangle text-lg"></i>
+                </div>
+                <div>
+                    <h4 class="text-amber-800 font-bold text-sm">Atenção: Guias Esquecidas!</h4>
+                    <p id="texto-alerta-emitidas" class="text-amber-700 text-sm mt-1"></p>
                 </div>
             </div>
 
@@ -192,10 +203,25 @@
             const clienteId = seletor.value;
             const nomeCliente = seletor.options[seletor.selectedIndex].text; 
             
+            const inicio = document.getElementById('data-inicio').value;
+            const fim = document.getElementById('data-fim').value;
+            
             if(!clienteId) return alert('Por favor, selecione um cliente!');
+            if(!inicio || !fim) return alert('Por favor, defina o período (Data Início e Data Fim)!');
 
-            const resposta = await fetch(`/faturacao/${clienteId}`);
+            const resposta = await fetch(`/faturacao/${clienteId}?inicio=${inicio}&fim=${fim}`);
             const dados = await resposta.json();
+
+            // 0. Mostrar o alerta de Guias Pendentes
+            const caixaAlerta = document.getElementById('alerta-emitidas');
+            if (dados.pendentes > 0) {
+                document.getElementById('texto-alerta-emitidas').innerHTML = `O sistema detetou <strong>${dados.pendentes} guia(s) e-GAR</strong> em estado "Emitida" para estas datas. Recomendamos que valide os estados na APA e sincronize novamente para não perder a faturação.`;
+                caixaAlerta.classList.remove('hidden');
+                caixaAlerta.classList.add('flex');
+            } else {
+                caixaAlerta.classList.add('hidden');
+                caixaAlerta.classList.remove('flex');
+            }
 
             // 1. Mostrar as secções
             document.getElementById('area-totais').classList.remove('hidden');

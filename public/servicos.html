@@ -27,20 +27,19 @@
         <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900/50">
               <img src="assets/imagens/logo.png" alt="Logo Bracicla" class="w-8 h-8 mr-3" />
               <span class="text-white font-semibold text-lg tracking-wide">Bracicla</span>
-        
         </div>
         <nav class="flex-1 overflow-y-auto py-4">
             <div class="px-4 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Principal</div>
             <a href="index.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-tachometer-alt w-5 mr-3"></i>Dashboard</a>
             
             <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Gestão</div>
-            <a href="clientes.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-users w-5 mr-3"></i>Clientes e Lojas</a>
-            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais (LER)</a>
-            <a href="servicos.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500"><i class="fas fa-truck w-5 mr-3"></i><span class="font-medium">Serviços e Avenças</span></a>
-            <a href="guias.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-file-invoice w-5 mr-3"></i>Guias (e-GAR)</a>
+            <a href="clientes.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-users w-5 mr-3"></i>Clientes</a>
+            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais</a>
+            <a href="servicos.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500"><i class="fas fa-truck w-5 mr-3"></i><span class="font-medium">Serviços</span></a>
+            <a href="guias.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-file-invoice w-5 mr-3"></i>Guias </a>
             
             <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Finanças</div>
-            <a href="faturacao.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-chart-line w-5 mr-3"></i>Faturação Mensal</a>
+            <a href="faturacao.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-chart-line w-5 mr-3"></i>Faturação</a>
         </nav>
         <div class="p-4 border-t border-slate-800 bg-slate-900/30 flex items-center">
             <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm">A</div>
@@ -51,134 +50,235 @@
     <div class="flex-1 flex flex-col h-screen overflow-hidden">
         
         <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-0">
-            <h1 class="text-xl font-semibold text-slate-800">Serviços e Avenças</h1>
+            <h1 class="text-xl font-semibold text-slate-800">Gestão de Serviços</h1>
         </header>
 
         <main class="flex-1 overflow-y-auto p-8">
             
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-                <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100">
-                    <h3 class="text-lg font-semibold text-slate-800 mb-6 flex items-center"><i class="fas fa-list-ul text-brand-500 mr-2"></i> 1. Criar Tipo de Serviço</h3>
+                
+                <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 border-t-4 border-t-brand-500">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
+                        <i class="fas fa-list-ul text-brand-500 mr-2"></i> 1. Criar Tipo de Serviço
+                    </h3>
                     <form id="form-catalogo" class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Descrição (Ex: Aluguer de Prensa)</label>
-                            <input type="text" id="descricao" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Descrição (Ex: Deslocação)</label>
+                            <input type="text" id="descricao" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Tipo de Cobrança</label>
-                            <select id="tipo" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-white">
-                                <option value="recorrente">Mensal / Recorrente (Avença)</option>
-                                <option value="pontual">Pontual (Ex: Deslocação)</option>
+                            <select id="tipo" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all bg-white">
+                                <option value="recorrente">Recorrente (Valor Fixo Mensal)</option>
+                                <option value="pontual">Pontual (Por Recolha/Guia)</option>
                             </select>
                         </div>
-                        <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-2.5 rounded-lg transition-colors mt-2">
-                            Adicionar ao Catálogo
+                        <button type="submit" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-2.5 rounded-lg transition-colors mt-4">
+                            Adicionar Serviço
                         </button>
                     </form>
                 </div>
 
-                <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100">
-                    <h3 class="text-lg font-semibold text-slate-800 mb-6 flex items-center"><i class="fas fa-handshake text-brand-500 mr-2"></i> 2. Associar Serviço a uma Loja</h3>
+                <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 border-t-4 border-t-brand-500">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center">
+                        <i class="fas fa-handshake text-brand-500 mr-2"></i> 2. Definir Serviço por Loja
+                    </h3>
                     <form id="form-associar" class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Escolher Loja</label>
-                                <select id="dropdown-lojas" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-white"><option value="">A carregar...</option></select>
+                                <select id="dropdown-lojas" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all bg-white">
+                                    <option value="">A carregar...</option>
+                                </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Escolher Serviço</label>
-                                <select id="dropdown-servicos" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-white"><option value="">A carregar...</option></select>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Serviço a Faturar</label>
+                                <select id="dropdown-servicos" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all bg-white">
+                                    <option value="">A carregar...</option>
+                                </select>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Valor a Cobrar (€)</label>
-                                <input type="number" step="0.01" id="valor" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                                <input type="number" step="0.01" id="valor" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Data de Início</label>
-                                <input type="date" id="data_inicio" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
+                                <input type="date" id="data_inicio" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                             </div>
                         </div>
-                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 rounded-lg transition-colors mt-2">
-                            Gravar Avença / Serviço
+                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 rounded-lg transition-colors mt-4">
+                            Associar à Loja
                         </button>
                     </form>
                 </div>
+
             </div>
 
-            <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 overflow-hidden">
-                <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-                    <h3 class="text-lg font-semibold text-slate-800 flex items-center"><i class="fas fa-list text-slate-400 mr-2"></i> Serviços Ativos por Loja</h3>
+            <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 overflow-hidden flex flex-col min-h-[500px]">
+                
+                <div class="border-b border-slate-200 bg-slate-50 px-6 pt-4">
+                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+                        <li class="mr-8">
+                            <button class="inline-block pb-4 border-b-2 border-brand-500 text-brand-600 transition-colors text-base" id="tab-gerais" onclick="alternarAba('gerais')">
+                                <i class="fas fa-list-ul mr-2"></i> Serviços Gerais (Catálogo)
+                            </button>
+                        </li>
+                        <li class="mr-8">
+                            <button class="inline-block pb-4 border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition-colors text-base" id="tab-clientes" onclick="alternarAba('clientes')">
+                                <i class="fas fa-store mr-2"></i> Serviços Ativos por Cliente
+                            </button>
+                        </li>
+                    </ul>
                 </div>
-                <div class="overflow-x-auto">
+
+                <div id="sec-gerais" class="flex-1 overflow-y-auto">
                     <table class="w-full text-sm text-left text-slate-600">
-                        <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-100">
+                        <thead class="text-xs text-slate-500 uppercase bg-white border-b border-slate-100 sticky top-0 shadow-sm">
                             <tr>
-                                <th class="px-6 py-4 font-semibold">Loja</th>
-                                <th class="px-6 py-4 font-semibold">Serviço</th>
-                                <th class="px-6 py-4 font-semibold">Tipo</th>
-                                <th class="px-6 py-4 font-semibold text-center">Data Início</th>
-                                <th class="px-6 py-4 font-semibold text-right">Valor (€)</th>
+                                <th class="px-8 py-5 font-semibold">Descrição do Serviço</th>
+                                <th class="px-8 py-5 font-semibold">Tipo de Cobrança</th>
+                                <th class="px-8 py-5 font-semibold text-right">Preço Médio Acordado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-catalogo" class="divide-y divide-slate-100">
+                            <tr><td colspan="3" class="px-8 py-10 text-center text-slate-400">A carregar serviços...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="sec-clientes" class="flex-1 overflow-y-auto hidden">
+                    <table class="w-full text-sm text-left text-slate-600">
+                        <thead class="text-xs text-slate-500 uppercase bg-white border-b border-slate-100 sticky top-0 shadow-sm">
+                            <tr>
+                                <th class="px-8 py-5 font-semibold">Loja / Cliente</th>
+                                <th class="px-8 py-5 font-semibold">Serviço Contratado</th>
+                                <th class="px-8 py-5 font-semibold text-center">Data Início</th>
+                                <th class="px-8 py-5 font-semibold text-right">Valor Negociado (€)</th>
                             </tr>
                         </thead>
                         <tbody id="tabela-contratos" class="divide-y divide-slate-100">
-                            </tbody>
+                            <tr><td colspan="4" class="px-8 py-10 text-center text-slate-400">A carregar serviços de clientes...</td></tr>
+                        </tbody>
                     </table>
                 </div>
+
             </div>
 
         </main>
     </div>
 
     <script>
-        async function carregarDropdowns() {
-            const resLojas = await fetch('/lojas');
-            const lojas = await resLojas.json();
-            const dropLojas = document.getElementById('dropdown-lojas');
-            dropLojas.innerHTML = '<option value="">Selecione uma Loja...</option>';
-            lojas.forEach(l => dropLojas.innerHTML += `<option value="${l.id}">${l.nome_loja} (${l.sede_nome})</option>`);
-
-            const resServicos = await fetch('/servicos');
-            const servicos = await resServicos.json();
-            const dropServicos = document.getElementById('dropdown-servicos');
-            dropServicos.innerHTML = '<option value="">Selecione um Serviço...</option>';
-            servicos.forEach(s => dropServicos.innerHTML += `<option value="${s.id}">${s.descricao} (${s.tipo})</option>`);
-        }
-
-        async function carregarTabela() {
-            const resposta = await fetch('/servicos-contratados');
-            const contratos = await resposta.json();
-            const tabela = document.getElementById('tabela-contratos');
-            tabela.innerHTML = '';
+        // --- 1. Lógica das Abas ---
+        function alternarAba(aba) {
+            document.getElementById('sec-gerais').classList.add('hidden');
+            document.getElementById('sec-clientes').classList.add('hidden');
+            document.getElementById('tab-gerais').className = 'inline-block pb-4 border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition-colors text-base';
+            document.getElementById('tab-clientes').className = 'inline-block pb-4 border-b-2 border-transparent text-slate-500 hover:text-slate-700 transition-colors text-base';
             
-            contratos.forEach(c => {
-                // Tailwind Badges: Azul para recorrente, Amarelo para pontual
-                const badgeClass = c.tipo === 'recorrente' 
-                    ? 'bg-blue-50 text-blue-600 border border-blue-200' 
-                    : 'bg-amber-50 text-amber-600 border border-amber-200';
-                    
-                const dataFormatada = new Date(c.data_inicio).toLocaleDateString('pt-PT');
-                
-                tabela.innerHTML += `
-                    <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-6 py-4 font-semibold text-slate-800">${c.nome_loja}</td>
-                        <td class="px-6 py-4">${c.servico}</td>
-                        <td class="px-6 py-4"><span class="${badgeClass} px-3 py-1 rounded-full text-xs font-medium tracking-wide">${c.tipo}</span></td>
-                        <td class="px-6 py-4 text-center text-slate-500">${dataFormatada}</td>
-                        <td class="px-6 py-4 text-right font-bold text-slate-800">${c.valor} €</td>
-                    </tr>
-                `;
-            });
+            document.getElementById(`sec-${aba}`).classList.remove('hidden');
+            document.getElementById(`tab-${aba}`).className = 'inline-block pb-4 border-b-2 border-brand-500 text-brand-600 transition-colors text-base';
         }
 
+        // --- 2. Carregar Dropdowns (Para o Form 2) ---
+        async function carregarDropdowns() {
+            try {
+                // Lojas
+                const resLojas = await fetch('/lojas');
+                const lojas = await resLojas.json();
+                const dropLojas = document.getElementById('dropdown-lojas');
+                dropLojas.innerHTML = '<option value="">Selecione uma Loja...</option>';
+                lojas.forEach(l => dropLojas.innerHTML += `<option value="${l.id}">${l.nome_loja} (${l.sede_nome})</option>`);
+
+                // Serviços
+                const resServicos = await fetch('/servicos');
+                const servicos = await resServicos.json();
+                const dropServicos = document.getElementById('dropdown-servicos');
+                dropServicos.innerHTML = '<option value="">Selecione um Serviço...</option>';
+                servicos.forEach(s => dropServicos.innerHTML += `<option value="${s.id}">${s.descricao} (${s.tipo})</option>`);
+            } catch(e) { console.error(e); }
+        }
+
+        // --- 3. Carregar Catálogo e Preço Médio (Aba 1) ---
+        async function carregarServicosGerais() {
+            try {
+                const resposta = await fetch('/servicos');
+                const servicos = await resposta.json();
+                const tabela = document.getElementById('tabela-catalogo');
+                tabela.innerHTML = '';
+                
+                if(servicos.length === 0) {
+                    tabela.innerHTML = '<tr><td colspan="3" class="px-8 py-10 text-center text-slate-400">Sem serviços criados no catálogo.</td></tr>';
+                    return;
+                }
+
+                servicos.forEach(s => {
+                    const badgeClass = s.tipo === 'recorrente' 
+                        ? 'bg-blue-50 text-blue-600 border border-blue-200' 
+                        : 'bg-amber-50 text-amber-600 border border-amber-200';
+                    
+                    const preco = s.preco_medio ? `${parseFloat(s.preco_medio).toFixed(2)} €` : '<span class="text-slate-400 italic font-normal text-xs">Sem contratos associados</span>';
+
+                    tabela.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-8 py-5 font-semibold text-slate-800">${s.descricao}</td>
+                            <td class="px-8 py-5"><span class="${badgeClass} px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wide">${s.tipo}</span></td>
+                            <td class="px-8 py-5 text-right font-bold text-slate-800 text-base">${preco}</td>
+                        </tr>
+                    `;
+                });
+            } catch(e) { console.error(e); }
+        }
+
+        // --- 4. Carregar Contratos das Lojas (Aba 2) ---
+        async function carregarServicosClientes() {
+            try {
+                const resposta = await fetch('/servicos-contratados');
+                const contratos = await resposta.json();
+                const tabela = document.getElementById('tabela-contratos');
+                tabela.innerHTML = '';
+                
+                if(contratos.length === 0) {
+                    tabela.innerHTML = '<tr><td colspan="4" class="px-8 py-10 text-center text-slate-400">Sem serviços associados a lojas.</td></tr>';
+                    return;
+                }
+
+                contratos.forEach(c => {
+                    const dataFormatada = new Date(c.data_inicio).toLocaleDateString('pt-PT');
+                    const badgeClass = c.tipo === 'recorrente' ? 'text-blue-600 bg-blue-50' : 'text-amber-600 bg-amber-50';
+                    
+                    tabela.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-8 py-5 font-semibold text-slate-800">${c.nome_loja}</td>
+                            <td class="px-8 py-5">
+                                <span class="block text-slate-700">${c.servico}</span>
+                                <span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold uppercase ${badgeClass}">${c.tipo}</span>
+                            </td>
+                            <td class="px-8 py-5 text-center text-slate-500">${dataFormatada}</td>
+                            <td class="px-8 py-5 text-right font-bold text-slate-800 text-base">${parseFloat(c.valor).toFixed(2)} €</td>
+                        </tr>
+                    `;
+                });
+            } catch(e) { console.error(e); }
+        }
+
+        // --- 5. Form de Criar Serviço ---
         document.getElementById('form-catalogo').addEventListener('submit', async function(e) {
             e.preventDefault();
             const novo = { descricao: document.getElementById('descricao').value, tipo: document.getElementById('tipo').value };
             const resposta = await fetch('/servicos', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(novo) });
-            if (resposta.ok) { alert('Serviço criado!'); document.getElementById('form-catalogo').reset(); carregarDropdowns(); }
+            
+            if (resposta.ok) { 
+                alert('Serviço adicionado ao Catálogo!'); 
+                document.getElementById('form-catalogo').reset(); 
+                carregarDropdowns(); 
+                carregarServicosGerais();
+                alternarAba('gerais');
+            }
         });
 
+        // --- 6. Form de Associar Serviço à Loja ---
         document.getElementById('form-associar').addEventListener('submit', async function(e) {
             e.preventDefault();
             const contrato = {
@@ -188,11 +288,21 @@
                 data_inicio: document.getElementById('data_inicio').value
             };
             const resposta = await fetch('/servicos-contratados', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(contrato) });
-            if (resposta.ok) { alert('Serviço associado à loja!'); document.getElementById('form-associar').reset(); carregarTabela(); document.getElementById('data_inicio').valueAsDate = new Date(); }
+            
+            if (resposta.ok) { 
+                alert('Serviço associado à loja com sucesso!'); 
+                document.getElementById('form-associar').reset(); 
+                document.getElementById('data_inicio').valueAsDate = new Date();
+                carregarServicosClientes();
+                carregarServicosGerais(); // Recarrega para atualizar o preço médio
+                alternarAba('clientes');
+            }
         });
 
+        // --- Inicialização ---
         carregarDropdowns();
-        carregarTabela();
+        carregarServicosGerais();
+        carregarServicosClientes();
         document.getElementById('data_inicio').valueAsDate = new Date();
     </script>
 </body>

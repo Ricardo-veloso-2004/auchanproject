@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Guias e-GAR - Bracicla ERP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,182 +21,361 @@
             }
         }
     </script>
+    <style>
+        /* Regras específicas para Impressão / Exportação PDF */
+        @page { size: A4 landscape; margin: 15mm; }
+        @media print {
+            aside, header, #barra-filtros, td:last-child, th:last-child { display: none !important; }
+            body { background-color: white !important; }
+            .flex-1 { margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+            main { padding: 0 !important; overflow: visible !important; height: auto !important; }
+            #area-tabela { display: block !important; overflow: visible !important; box-shadow: none !important; border:none; }
+            table { width: 100% !important; border-collapse: collapse; }
+            th, td { border: 1px solid #e2e8f0 !important; padding: 8px !important; color: black !important; }
+            #cabecalho-impressao { display: block !important; margin-bottom: 2rem !important; }
+            #painel-reconciliacao { display: none !important; }
+        }
+    </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 antialiased flex h-screen overflow-hidden">
 
     <aside class="w-64 bg-dark text-slate-300 flex flex-col shadow-2xl z-10 hidden md:flex">
         <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-900/50">
-              <img src="assets/imagens/logo.png" alt="Logo Bracicla" class="w-8 h-8 mr-3" />
+              <img src="assets/imagens/logo.png" alt="Logo Bracicla" class="w-8 h-8 mr-3" onerror="this.src='https://via.placeholder.com/32?text=B'" />
               <span class="text-white font-semibold text-lg tracking-wide">Bracicla</span>
-        
         </div>
         <nav class="flex-1 overflow-y-auto py-4">
             <div class="px-4 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Principal</div>
             <a href="index.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-tachometer-alt w-5 mr-3"></i>Dashboard</a>
             
             <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Gestão</div>
-            <a href="clientes.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-users w-5 mr-3"></i>Clientes e Lojas</a>
-            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais (LER)</a>
-            <a href="servicos.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-truck w-5 mr-3"></i>Serviços e Avenças</a>
-            <a href="guias.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500"><i class="fas fa-file-invoice w-5 mr-3"></i><span class="font-medium">Guias (e-GAR)</span></a>
+            <a href="clientes.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-users w-5 mr-3"></i>Clientes</a>
+            <a href="materiais.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-box w-5 mr-3"></i>Materiais</a>
+            <a href="servicos.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-truck w-5 mr-3"></i>Serviços</a>
+            <a href="guias.html" class="flex items-center px-6 py-3 bg-brand-600/10 text-brand-500 border-r-4 border-brand-500 font-bold"><i class="fas fa-file-invoice w-5 mr-3"></i>Guias</a>
             
             <div class="px-4 mt-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Finanças</div>
-            <a href="faturacao.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-chart-line w-5 mr-3"></i>Faturação Mensal</a>
+            <a href="faturacao.html" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors"><i class="fas fa-chart-line w-5 mr-3"></i>Faturação</a>
         </nav>
-        <div class="p-4 border-t border-slate-800 bg-slate-900/30 flex items-center">
-            <div class="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold text-sm">A</div>
-            <div class="ml-3"><p class="text-sm font-medium text-white">Administrador</p></div>
-        </div>
     </aside>
 
     <div class="flex-1 flex flex-col h-screen overflow-hidden">
         
         <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-0">
-            <h1 class="text-xl font-semibold text-slate-800">Guias de Acompanhamento (e-GARs)</h1>
+            <h1 class="text-xl font-semibold text-slate-800 flex items-center">
+                <i class="fas fa-file-invoice text-brand-500 mr-3"></i> Gestão de Guias (e-GAR)
+            </h1>
+            <div class="flex gap-3">
+                <button id="btn-atualizar" onclick="sincronizarComAPA()" class="bg-slate-800 hover:bg-slate-900 disabled:bg-slate-400 text-white font-medium px-6 py-2.5 rounded-lg shadow-sm transition-all flex items-center text-sm">
+                    <i class="fas fa-cloud-download-alt mr-2" id="icon-sync"></i> IMPORTAR DA APA
+                </button>
+            </div>
         </header>
 
         <main class="flex-1 overflow-y-auto p-8">
-            
-            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 mb-8">
-                <h3 class="text-lg font-semibold text-slate-800 mb-6 flex items-center"><i class="fas fa-plus-circle text-brand-500 mr-2"></i> Inserir Guia Manual</h3>
+
+            <div id="cabecalho-impressao" class="hidden">
+                <div class="border-b-2 border-slate-800 pb-4">
+                    <h2 class="text-2xl font-bold text-slate-800">Bracicla - Relatório de Guias e-GAR</h2>
+                    <p class="text-slate-600 text-sm mt-1">Extraído em: <span id="data-impressao"></span></p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 overflow-hidden min-h-[500px] flex flex-col">
                 
-                <form id="form-guia" class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Nº da Guia (Ex: PT12345)</label>
-                            <input type="text" id="numero_guia" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Loja (Produtor)</label>
-                            <select id="dropdown-lojas" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-white"></select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Material (Código LER)</label>
-                            <select id="dropdown-materiais" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-white"></select>
-                        </div>
+                <div class="p-6 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
+                    <h3 id="contador-guias" class="text-lg font-semibold text-slate-800 flex items-center">
+                        <i class="fas fa-list text-slate-400 mr-2"></i> Aguardando...
+                    </h3>
+                </div>
+
+                <div id="barra-filtros" class="bg-white border-b border-slate-100 p-4 flex flex-col md:flex-row flex-wrap gap-4 shadow-sm z-10 relative items-end">
+                    
+                    <div class="flex-1 min-w-[200px] relative">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Pesquisa Geral</label>
+                        <i class="fas fa-search absolute left-3 top-8 text-slate-400"></i>
+                        <input type="text" id="filtro-texto" onkeyup="aplicarFiltros()" placeholder="Nº Guia, Cliente (Sede), Loja..." class="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Peso Líquido (KG)</label>
-                            <input type="number" step="0.1" id="peso_kg" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Estado da Guia</label>
-                            <select id="estado" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all bg-white">
-                                <option value="Concluída">Concluída (Pronta a faturar)</option>
-                                <option value="Emitida">Emitida (A aguardar pesagem)</option>
-                                <option value="Rejeitada">Rejeitada</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Data de Emissão</label>
-                            <input type="date" id="data_emissao" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all">
-                        </div>
+                    <div class="w-full md:w-40 relative">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Material</label>
+                        <i class="fas fa-box absolute left-3 top-8 text-slate-400"></i>
+                        <input type="text" id="filtro-material" onkeyup="aplicarFiltros()" placeholder="Ex: Plástico..." class="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                     </div>
-                    
-                    <div class="pt-2">
-                        <button type="submit" class="w-full md:w-auto px-8 bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm">
-                            Registar Guia no Sistema
+
+                    <div class="w-full md:w-36">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Data</label>
+                        <input type="date" id="filtro-data" onchange="aplicarFiltros()" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                    </div>
+
+                    <div class="w-full md:w-36">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Estado</label>
+                        <select id="filtro-estado" onchange="aplicarFiltros()" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none transition-all bg-white">
+                            <option value="">Todos os Estados</option>
+                            <option value="Emitida">Emitida (Pendente)</option>
+                            <option value="Corrigida">Corrigida (Válida)</option>
+                            <option value="Aceite">Aceite (Válida)</option>
+                            <option value="Concluída">Concluída (Válida)</option>
+                            <option value="Rejeitada">Rejeitada (Inválida)</option>
+                            <option value="Anulada">Anulada (Inválida)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex gap-2 w-full md:w-auto mt-4 md:mt-0">
+                        <button onclick="exportarExcel()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-sm flex items-center justify-center flex-1 md:flex-none">
+                            <i class="fas fa-file-excel mr-2"></i> Excel
+                        </button>
+                        <button onclick="exportarPDF()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors shadow-sm flex items-center justify-center flex-1 md:flex-none">
+                            <i class="fas fa-file-pdf mr-2"></i> PDF
                         </button>
                     </div>
-                </form>
-            </div>
 
-            <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 overflow-hidden">
-                <div class="p-6 border-b border-slate-100 bg-slate-50/50">
-                    <h3 class="text-lg font-semibold text-slate-800 flex items-center"><i class="fas fa-table text-slate-400 mr-2"></i> Histórico de Guias Recebidas</h3>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-slate-600">
-                        <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-100">
-                            <tr>
-                                <th class="px-6 py-4 font-semibold">Nº Guia</th>
-                                <th class="px-6 py-4 font-semibold">Data</th>
-                                <th class="px-6 py-4 font-semibold">Loja</th>
-                                <th class="px-6 py-4 font-semibold">Material</th>
-                                <th class="px-6 py-4 font-semibold text-right">Peso (KG)</th>
-                                <th class="px-6 py-4 font-semibold text-center">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabela-guias" class="divide-y divide-slate-100">
-                            </tbody>
-                    </table>
+
+                <div id="loading" class="hidden flex-1 flex flex-col items-center justify-center p-20">
+                    <div class="w-12 h-12 border-4 border-slate-100 border-t-brand-500 rounded-full animate-spin"></div>
+                    <p class="text-slate-400 font-medium mt-6 uppercase tracking-widest text-xs">A sincronizar e atualizar dados...</p>
+                </div>
+
+                <div id="painel-reconciliacao" class="hidden mt-4 mx-6 mb-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                    <h4 class="text-amber-800 font-bold flex items-center mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i> Atenção: Existem guias com dados desconhecidos!
+                    </h4>
+                    <p class="text-sm text-amber-700 mb-3">O sistema importou guias da APA com lojas ou materiais que ainda não existem no ERP. Por favor, regista-os para que a faturação funcione corretamente.</p>
+                    
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div id="lista-lojas-orfas" class="flex-1 text-sm bg-white p-3 rounded border border-amber-100 hidden">
+                            <strong class="text-slate-800 block mb-1">Lojas em falta:</strong>
+                            <ul class="list-disc pl-5 text-slate-600" id="ul-lojas-orfas"></ul>
+                            <a href="clientes.html" class="inline-block mt-2 text-brand-600 font-semibold hover:underline text-xs">Ir para Gestão de Clientes &rarr;</a>
+                        </div>
+                        
+                        <div id="lista-materiais-orfaos" class="flex-1 text-sm bg-white p-3 rounded border border-amber-100 hidden">
+                            <strong class="text-slate-800 block mb-1">Materiais em falta:</strong>
+                            <ul class="list-disc pl-5 text-slate-600" id="ul-materiais-orfaos"></ul>
+                            <a href="materiais.html" class="inline-block mt-2 text-brand-600 font-semibold hover:underline text-xs">Ir para Gestão de Materiais &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="area-tabela" class="flex-1 relative">
+                    <div class="overflow-x-auto h-full">
+                        <table class="w-full text-sm text-left text-slate-600 border-collapse">
+                            <thead class="sticky top-0 bg-slate-50 text-xs text-slate-500 uppercase font-semibold border-b border-slate-200 shadow-sm z-10">
+                                <tr>
+                                    <th class="px-6 py-4">Nº Guia / Cliente</th>
+                                    <th class="px-6 py-4">Data Emissão</th>
+                                    <th class="px-6 py-4">Loja / Produtor</th>
+                                    <th class="px-6 py-4">Material / LER</th>
+                                    <th class="px-6 py-4 text-right">Peso (KG)</th>
+                                    <th class="px-6 py-4 text-center">Estado APA</th>
+                                    <th class="px-6 py-4 text-center">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lista-guias" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
         </main>
     </div>
 
     <script>
-        async function carregarDropdowns() {
-            const resLojas = await fetch('/lojas');
-            const lojas = await resLojas.json();
-            const dropLojas = document.getElementById('dropdown-lojas');
-            dropLojas.innerHTML = '<option value="">Selecione uma Loja...</option>';
-            lojas.forEach(l => dropLojas.innerHTML += `<option value="${l.id}">${l.nome_loja} (${l.sede_nome})</option>`);
+        let guiasBD = [];
+        let guiasFiltradas = []; 
 
-            const resMateriais = await fetch('/materiais');
-            const materiais = await resMateriais.json();
-            const dropMateriais = document.getElementById('dropdown-materiais');
-            dropMateriais.innerHTML = '<option value="">Selecione um Material...</option>';
-            materiais.forEach(m => dropMateriais.innerHTML += `<option value="${m.id}">${m.codigo_ler} - ${m.descricao}</option>`);
+        // 1. CARREGAR GUIAS DA BASE DE DADOS (LOCAL)
+        async function carregarGuiasLocais() {
+            const res = await fetch('/guias');
+            guiasBD = await res.json();
+            aplicarFiltros();
         }
 
-        async function carregarTabela() {
-            const resposta = await fetch('/guias');
-            const guias = await resposta.json();
-            const tabela = document.getElementById('tabela-guias');
-            tabela.innerHTML = '';
-            
-            guias.forEach(g => {
-                // Tailwind Badges Dinâmicos!
-                let corEstado = 'bg-emerald-50 text-emerald-600 border border-emerald-200'; // Concluída
-                if(g.estado === 'Emitida') corEstado = 'bg-amber-50 text-amber-600 border border-amber-200';
-                if(g.estado === 'Rejeitada') corEstado = 'bg-rose-50 text-rose-600 border border-rose-200';
-
-                const dataFormatada = new Date(g.data_emissao).toLocaleDateString('pt-PT');
+        // 2. VERIFICAR DADOS DESCONHECIDOS NA BD (Painel de Reconciliação)
+        async function verificarPendentesMapeamento() {
+            try {
+                const res = await fetch('/api/reconciliacao/pendentes');
+                const dados = await res.json();
                 
-                tabela.innerHTML += `
+                const painel = document.getElementById('painel-reconciliacao');
+                const divLojas = document.getElementById('lista-lojas-orfas');
+                const divMateriais = document.getElementById('lista-materiais-orfaos');
+                const ulLojas = document.getElementById('ul-lojas-orfas');
+                const ulMateriais = document.getElementById('ul-materiais-orfaos');
+                
+                if (dados.sucesso && dados.total_pendentes > 0) {
+                    painel.classList.remove('hidden');
+                    
+                    if (dados.lojas.length > 0) {
+                        divLojas.classList.remove('hidden');
+                        ulLojas.innerHTML = dados.lojas.map(l => `<li><b>${l.codigo_apa}</b>: ${l.nome} (${l.total_guias} guias)</li>`).join('');
+                    } else {
+                        divLojas.classList.add('hidden');
+                    }
+                    
+                    if (dados.materiais.length > 0) {
+                        divMateriais.classList.remove('hidden');
+                        ulMateriais.innerHTML = dados.materiais.map(m => `<li><b>${m.codigo_ler}</b>: ${m.descricao} (${m.total_guias} guias)</li>`).join('');
+                    } else {
+                        divMateriais.classList.add('hidden');
+                    }
+                } else {
+                    painel.classList.add('hidden');
+                }
+            } catch (erro) {
+                console.error("Erro ao verificar pendentes de mapeamento:", erro);
+            }
+        }
+
+        // 3. SINCRONIZAR COM A APA E ATUALIZAR
+        async function sincronizarComAPA() {
+            const loading = document.getElementById('loading');
+            const tabela = document.getElementById('area-tabela');
+            const painel = document.getElementById('painel-reconciliacao');
+            const btn = document.getElementById('btn-atualizar');
+            
+            loading.classList.remove('hidden');
+            tabela.classList.add('hidden');
+            painel.classList.add('hidden'); // Ocultar enquanto carrega
+            btn.disabled = true;
+
+            try {
+                const resConsulta = await fetch('/api/siliamb/consultar');
+                const dadosAPA = await resConsulta.json();
+
+                if (dadosAPA.sucesso && dadosAPA.total > 0) {
+                    const resSync = await fetch('/api/siliamb/sincronizar', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ guias: dadosAPA.lista })
+                    });
+                    const resultadoSync = await resSync.json();
+                    alert(resultadoSync.mensagem);
+                } else {
+                    alert("A APA não devolveu novas guias ou alterações.");
+                }
+            } catch (err) {
+                alert("Erro ao sincronizar com a APA.");
+            } finally {
+                loading.classList.add('hidden');
+                tabela.classList.remove('hidden');
+                btn.disabled = false;
+                
+                // Recarrega as listas locais para atualizar a tabela e o alerta
+                await carregarGuiasLocais(); 
+                verificarPendentesMapeamento();
+            }
+        }
+
+        // 4. RENDERIZAR TABELA E APLICAR FILTROS MULTIPLOS
+       function aplicarFiltros() {
+            const texto = document.getElementById('filtro-texto').value.toLowerCase();
+            const material = document.getElementById('filtro-material').value.toLowerCase();
+            const data = document.getElementById('filtro-data').value;
+            const estado = document.getElementById('filtro-estado').value.toLowerCase(); // Convertido a minúsculas para segurança
+
+            guiasFiltradas = guiasBD.filter(g => {
+                const matString = (g.material || '').toLowerCase();
+                const dataString = g.data_emissao ? g.data_emissao.split('T')[0] : '';
+                const estadoGuia = (g.estado || '').toLowerCase();
+                
+                const passaTexto = g.numero_guia.toLowerCase().includes(texto) || 
+                                  (g.nome_loja && g.nome_loja.toLowerCase().includes(texto)) ||
+                                  (g.nome_cliente && g.nome_cliente.toLowerCase().includes(texto));
+                                  
+                const passaMat = matString.includes(material);
+                const passaData = data === '' || dataString === data;
+                const passaEstado = estado === '' || estadoGuia === estado;
+
+                return passaTexto && passaMat && passaData && passaEstado;
+            });
+
+            document.getElementById('contador-guias').innerHTML = `<i class="fas fa-check-circle text-brand-500 mr-2"></i> A mostrar ${guiasFiltradas.length} guias.`;
+
+            const tbody = document.getElementById('lista-guias');
+            tbody.innerHTML = '';
+
+            guiasFiltradas.forEach(g => {
+                const dataPT = new Date(g.data_emissao).toLocaleDateString('pt-PT');
+                const iconeAlerta = (g.estabelecimento_id === null || g.material_id === null) ? `<i class="fas fa-exclamation-triangle text-amber-500 mr-1" title="Não mapeado no sistema"></i> ` : '';
+                const clienteTag = g.nome_cliente ? `<div class="text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-wider">${g.nome_cliente}</div>` : `<div class="text-[11px] font-bold text-amber-500 mt-1"><i class="fas fa-exclamation-circle"></i> Sede não registada</div>`;
+                const url = (g.url_guia && g.url_guia !== 'null') ? g.url_guia : '#';
+                const disabledClass = url === '#' ? 'opacity-50 cursor-not-allowed' : 'hover:border-red-500 hover:text-red-600 hover:scale-105';
+
+                // Lógica de Cores para os Estados
+               // Lógica de Cores para os Estados (Atualizada)
+                let corEstado = 'bg-slate-100 text-slate-600'; // Default
+                const est = (g.estado || '').toLowerCase();
+                
+                // Pendentes (Amarelo)
+                if(est === 'emitida') {
+                    corEstado = 'bg-amber-100 text-amber-700 border border-amber-200';
+                } 
+                // Válidas para Faturação (Verde)
+                else if(est === 'corrigida' || est === 'aceite' || est === 'concluída' || est === 'concluida') {
+                    corEstado = 'bg-green-100 text-green-700 border border-green-200';
+                } 
+                // Inválidas (Vermelho rasurado)
+                else if(est === 'rejeitada' || est === 'anulada') {
+                    corEstado = 'bg-red-100 text-red-700 border border-red-200 line-through';
+                }
+
+                tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-6 py-4 font-semibold text-slate-800">${g.numero_guia}</td>
-                        <td class="px-6 py-4 text-slate-500">${dataFormatada}</td>
-                        <td class="px-6 py-4">${g.nome_loja}</td>
-                        <td class="px-6 py-4"><span class="bg-slate-100 text-slate-700 px-2 py-1 rounded text-xs font-medium">${g.material}</span></td>
-                        <td class="px-6 py-4 text-right font-bold text-slate-800">${g.peso_kg} Kg</td>
+                        <td class="px-6 py-4">
+                            <span class="font-mono font-bold text-brand-600">${g.numero_guia}</span>
+                            ${clienteTag}
+                        </td>
+                        <td class="px-6 py-4 text-xs">${dataPT}</td>
+                        <td class="px-6 py-4 text-sm font-medium text-slate-800">${iconeAlerta}${g.nome_loja}</td>
+                        <td class="px-6 py-4 text-sm">${iconeAlerta}${g.material}</td>
+                        <td class="px-6 py-4 text-right font-bold text-slate-800">${g.peso_kg} kg</td>
+                        <td class="px-6 py-4 text-center"><span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${corEstado}">${g.estado}</span></td>
                         <td class="px-6 py-4 text-center">
-                            <span class="${corEstado} px-3 py-1 rounded-full text-xs font-medium tracking-wide">${g.estado}</span>
+                            <a href="${url}" target="${url !== '#' ? '_blank' : ''}" class="inline-flex items-center justify-center w-10 h-10 bg-white border border-slate-200 text-slate-400 rounded-xl transition-all shadow-sm ${disabledClass}" title="Abrir PDF Original">
+                                <i class="fas fa-file-pdf"></i>
+                            </a>
                         </td>
                     </tr>
                 `;
             });
         }
 
-        document.getElementById('form-guia').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const novaGuia = {
-                numero_guia: document.getElementById('numero_guia').value,
-                estabelecimento_id: document.getElementById('dropdown-lojas').value,
-                material_id: document.getElementById('dropdown-materiais').value,
-                peso_kg: document.getElementById('peso_kg').value,
-                estado: document.getElementById('estado').value,
-                data_emissao: document.getElementById('data_emissao').value
-            };
+        // 5. EXPORTAR PARA EXCEL
+        function exportarExcel() {
+            if(guiasFiltradas.length === 0) return alert("Não há dados para exportar com estes filtros.");
             
-            const resposta = await fetch('/guias', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(novaGuia) });
-            if (resposta.ok) { 
-                alert('Guia inserida com sucesso!'); 
-                document.getElementById('form-guia').reset(); 
-                document.getElementById('data_emissao').valueAsDate = new Date();
-                carregarTabela(); 
-            } else {
-                alert('Erro! Possivelmente este número de guia já existe no sistema.');
-            }
-        });
+            let csv = "Nº Guia;Cliente (Sede);Data Emissão;Loja/Produtor;Material;Peso (KG);Estado\n";
+            guiasFiltradas.forEach(g => {
+                const dataF = new Date(g.data_emissao).toLocaleDateString('pt-PT');
+                // Limpar pontos e virgulas nos nomes para nao partir as colunas do Excel
+                const cliente = (g.nome_cliente || 'Sem Sede').replace(/;/g, ',');
+                const loja = (g.nome_loja || '').replace(/;/g, ',');
+                const mat = (g.material || '').replace(/;/g, ',');
+                
+                csv += `${g.numero_guia};${cliente};${dataF};${loja};${mat};${g.peso_kg};${g.estado}\n`;
+            });
 
-        carregarDropdowns();
-        carregarTabela();
-        document.getElementById('data_emissao').valueAsDate = new Date();
+            // \uFEFF Força o Excel a entender acentos PT corretos (UTF-8)
+            const blob = new Blob(["\uFEFF"+csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `Guias_eGAR_${new Date().toLocaleDateString('pt-PT').replace(/\//g, '-')}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 6. EXPORTAR PARA PDF
+        function exportarPDF() {
+            if(guiasFiltradas.length === 0) return alert("Não há dados para exportar com estes filtros.");
+            document.getElementById('data-impressao').innerText = new Date().toLocaleDateString('pt-PT');
+            window.print();
+        }
+
+        // INICIALIZAÇÃO
+        carregarGuiasLocais();
+        verificarPendentesMapeamento();
     </script>
 </body>
 </html>
